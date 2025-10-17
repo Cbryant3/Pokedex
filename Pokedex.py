@@ -13,21 +13,11 @@ def get_pokemon_data(pokemon_name):
     else:
         print(f"Error: Unable to fetch data for {pokemon_name} ({response.status_code})")
         return None
-    
 
-def get_species_data(pokemon_name):
-    """Fetch Pokémon species data (for description)"""
-    url = f"{base_url}/pokemon-species/{pokemon_name.lower()}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        print(f"Error: Unable to fetch species data ({response.status_code})")
-        return None
 
 def display_pokemon_info(pokemon_name):
     pokemon_info = get_pokemon_data(pokemon_name)
-    ##species_info = get_species_data(pokemon_name)
+   
 
     if not pokemon_info:
         print("Pokémon not found.")
@@ -53,7 +43,7 @@ def display_pokemon_info(pokemon_name):
         print(f"Weight: {pokemon_info["weight"]} kg")
 
         abilties = [ability["ability"]["name"] for ability in pokemon_info["abilities"]]
-        print(f"Abilities:{' , '.join(abilties)}")
+        print(f"Abilities: {' , '.join(abilties)}")
 
         types = [t['type']['name'] for t in pokemon_info['types']]
         print(f"Type(s): {', '.join(types)}")

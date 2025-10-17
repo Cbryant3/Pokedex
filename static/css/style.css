@@ -1,0 +1,104 @@
+/* GENERAL PAGE SETTINGS */
+body {
+  background-image: url('../img/Podex_wallpaperHD.jpg'); /* go up one folder to static/ then to img/ */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* CONTAINER */
+/*.pokedex-container {
+  background: rgba(0, 0, 0, 0.75);
+  padding: 25px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-top: 60px;
+  box-shadow: 0 0 25px rgba(0, 204, 255, 0.4);
+}*/
+
+.pokedex {
+  text-align: center;
+  padding: 20px;
+}
+
+/* LOGO */
+.logo {
+  width: 300px; /* Shrinks logo */
+  margin: 10px auto 25px auto;
+  display: block;
+  filter: drop-shadow(0 0 10px gold);
+  height: auto;
+  
+}
+
+/* SEARCH BAR */
+.search {
+  margin: 20px 0;
+  text-align: center;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  width: 250px;
+  text-align: center;
+}
+
+button {
+  padding: 10px 15px;
+  margin-left: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #00b8ff;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0095cc;
+}
+
+/* POKEMON INFO */
+.pokemon-info {
+  margin-top: 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(0, 204, 255, 0.3);
+}
+
+.pokemon-sprite {
+  width: 140px;
+  height: 140px;
+}
+
+.stat {
+  margin: 5px 0;
+}
+
+.pokemon-card {
+  background: rgba(255,255,255,0.8);
+  border-radius: 15px;
+  padding: 20px;
+  max-width: 400px;
+  margin: 20px auto;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.pokemon-img {
+  width: 200px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+}

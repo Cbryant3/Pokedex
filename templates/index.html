@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokédex</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="pokedex">
+    <!-- Pokémon Logo -->
+    <img src="{{ url_for('static', filename='img/Pokemon_logo.png') }}" alt="Pokémon Logo" class="logo">
+
+    <!-- Search Section -->
+    <div class="search">
+      <input type="text" id="pokemonInput" placeholder="Enter Pokémon name">
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <!-- Pokémon Info Output -->
+    <div id="pokemonInfo" class="pokemon-info"></div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
