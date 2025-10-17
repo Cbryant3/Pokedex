@@ -25,7 +25,17 @@ function displayPokemonInfo(data) {
   pokemonInfo.innerHTML = `
     <div class="pokemon-card">
       <h2>${data.name} (#${data.id})</h2>
-      <img src="${artwork}" alt="${data.name}" class="pokemon-img">
+      <div class="artwork-section">
+        <h3>Official Artwork</h3>
+        <img src="${data.official_artwork.default}" alt="${data.name}" class="pokemon-img">
+        <img src="${data.official_artwork.shiny}" alt="${data.name} Shiny" class="pokemon-img">
+      </div>
+
+      <div class="sprite-section">
+        <h3>Sprites</h3>
+        <img src="${data.sprites.default}" alt="${data.name} Sprite" class="pokemon-sprite">
+        <img src="${data.sprites.shiny}" alt="${data.name} Shiny Sprite" class="pokemon-sprite">
+      </div>
 
       <p><strong>Type(s):</strong> ${data.types.join(", ")}</p>
       <p><strong>Abilities:</strong> ${data.abilities.join(", ")}</p>
