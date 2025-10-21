@@ -17,14 +17,16 @@ async function getPokemonData(name) {
   }
 }
 
+let statsChartInstance = null; // prevent overlapping charts
+
 // Display Pokémon info dynamically
 function displayPokemonInfo(data) {
   const moves = data.moves.slice(0, 10).join(", ");
-  const artwork = data.official_artwork?.default || data.sprites?.default || "";
 
   pokemonInfo.innerHTML = `
     <div class="pokemon-card">
       <h2>${data.name} (#${data.id})</h2>
+
       <div class="artwork-section">
         <h3>Official Artwork</h3>
         <img src="${data.official_artwork.default}" alt="${data.name}" class="pokemon-img">
@@ -49,13 +51,71 @@ function displayPokemonInfo(data) {
       </audio>
 
       <h3>Stats</h3>
-      <ul>
-        ${Object.entries(data.stats)
-          .map(([key, value]) => `<li>${key.toUpperCase()}: ${value}</li>`)
-          .join("")}
-      </ul>
+      <!-- Radar Chart -->
+      <canvas id="statsChart" width="300" height="300"></canvas>
     </div>
   `;
+
+  const canvas = document.getElementById('statsChart');
+  if (!canvas) {
+    console.error("Stats chart canvas not found!");
+    return;
+  }
+
+  const ctx = canvas.getContext('2d');
+  const labels = Object.keys(data.stats).map(stat => stat.toUpperCase());
+  const statsData = Object.values(data.stats);
+
+  if (statsChartInstance) {
+    statsChartInstance.destroy();
+  }
+
+  statsChartInstance = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: `${data.name}'s Stats`,
+        data: statsData,
+        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 2,
+        pointRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      //maintainAspectRatio: false,
+      scales: {
+        r: {
+          beginAtZero: true,
+          ticks: {
+            showLabelBackdrop: false
+          }
+        }
+      }
+    },
+    plugins: [{
+      id: 'statLabels',
+      afterDatasetsDraw(chart) {
+        const { ctx } = chart;
+        chart.data.datasets.forEach((dataset, i) => {
+          const meta = chart.getDatasetMeta(i);
+          meta.data.forEach((point, index) => {
+            const value = dataset.data[index];
+            ctx.save();
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 14px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const { x, y } = point.tooltipPosition();
+            ctx.fillText(value, x, y - 10); // Position above point
+            ctx.restore();
+          });
+        });
+      }
+    }]
+  });
 }
 
 // Search button click event
